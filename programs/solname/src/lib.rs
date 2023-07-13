@@ -1,10 +1,12 @@
 pub mod state;
+pub mod instructions;
 
 use anchor_lang::prelude::*;
 use anchor_spl::{
     associated_token::AssociatedToken,
     token::{CloseAccount, Mint, Token, TokenAccount, Transfer},
 };
+use instructions::*;
 
 declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 
@@ -103,6 +105,13 @@ pub mod solname {
 
     use super::*;
     use anchor_spl::token::Transfer;
+
+    pub fn register_domain(
+        ctx: Context<RegisterDomain>,
+        name: String,
+    ) -> ProgramResult {
+        instructions::register::handler(ctx, name)
+    }
 
     pub fn complete_grant(
         ctx: Context<CompleteGrant>,
